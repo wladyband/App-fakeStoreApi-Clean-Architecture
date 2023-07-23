@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:fakestoreapi/app/domain/models/HttpMethod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
@@ -11,20 +12,19 @@ part 'failure.dart';
 part 'logs.dart';
 part 'parse_response_body.dart';
 
-enum HttpMethod { get, post, patch, delete, put }
+
 
 class Http {
   Http({
-    required Client client,
+      required Client client,
     required String baseUrl,
-    required String apiKey,
   })  : _client = client,
-        _apiKey = apiKey,
+
         _baseUrl = baseUrl;
 
   final Client _client;
   final String _baseUrl;
-  final String _apiKey;
+
 
   Future<Either<HttpFailure, R>> request<R>(
       String path, {
@@ -43,7 +43,6 @@ class Http {
       if (useApiKey) {
         queryParameters = {
           ...queryParameters,
-          'api_key': _apiKey,
         };
       }
       Uri url = Uri.parse(
