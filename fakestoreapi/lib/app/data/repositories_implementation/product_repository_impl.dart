@@ -1,6 +1,3 @@
-
-
-
 import 'package:fakestoreapi/app/data/http/http.dart';
 import 'package:fakestoreapi/app/data/services/remote/productAPI.dart';
 import 'package:fakestoreapi/app/domain/models/product.dart';

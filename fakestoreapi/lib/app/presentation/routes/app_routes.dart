@@ -7,9 +7,8 @@ import 'package:flutter/cupertino.dart';
 
 Map<String, Widget Function(BuildContext)> get appRoutes {
   return {
-    Routes.home: (context) => HomeView(),
     Routes.list_products: (context) => ListProductsView(),
+    Routes.home: (context) => ListProductsView(),
     Routes.product_registration: (context) => const ProductRegistrationForm(),
-
   };
 }
