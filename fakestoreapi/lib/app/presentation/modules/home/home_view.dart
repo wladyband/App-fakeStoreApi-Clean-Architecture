@@ -1,4 +1,5 @@
 import 'package:fakestoreapi/app/presentation/global/ppp_images.dart';
+import 'package:fakestoreapi/app/presentation/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
@@ -18,9 +19,18 @@ class HomeView extends StatelessWidget {
               )
             ),
           ),
-         Image.asset(
-           AppImages.home
-         ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushReplacementNamed(
+                context,
+                Routes.list_products,
+              );
+            },
+            child: Image.asset(
+              AppImages.home,
+              // Aqui você pode definir atributos como width, height, etc. para a imagem.
+            ),
+          ),
           SizedBox(height: 20), // Opcional: Espaçamento entre o rodapé e a parte inferior da tela
         ],
       ),
