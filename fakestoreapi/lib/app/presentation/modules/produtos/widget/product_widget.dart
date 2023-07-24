@@ -1,6 +1,8 @@
 import 'package:fakestoreapi/app/domain/models/product.dart';
 import 'package:fakestoreapi/app/presentation/global/ppp_images.dart';
+import 'package:fakestoreapi/app/presentation/modules/produtos/all/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductWidget extends StatefulWidget {
@@ -13,42 +15,10 @@ class ProductWidget extends StatefulWidget {
 }
 
 class _ProductWidgetState extends State<ProductWidget> {
-
-  bool isFavorite = false; // Variável que determina se o produto é um favorito ou não
-
-  @override
-  void initState() {
-    super.initState();
-    checkIfFavorite(); // Verifica se o produto é um favorito ao inicializar o widget
-  }
-
-  void checkIfFavorite() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> favoriteProducts = prefs.getStringList('favoriteProducts') ?? [];
-    setState(() {
-      isFavorite = favoriteProducts.contains(widget.product.id);
-    });
-  }
-
-  void toggleFavorite() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> favoriteProducts = prefs.getStringList('favoriteProducts') ?? [];
-    String productId = widget.product.id.toString(); // Converta o ID do produto para String
-    if (isFavorite) {
-      favoriteProducts.remove(productId);
-    } else {
-      favoriteProducts.add(productId);
-    }
-    await prefs.setStringList('favoriteProducts', favoriteProducts);
-    setState(() {
-      isFavorite = !isFavorite;
-    });
-  }
-
-
-
   @override
   Widget build(BuildContext context) {
+    final productController = Provider.of<ProductController>(context);
+    bool isFavorite = productController.isFavorite(widget.product);
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 5, right: 26, left: 26),
       child: Column(
@@ -103,7 +73,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                         ),
                         SizedBox(width: 27),
                         InkWell(
-                          onTap: toggleFavorite, // Chama o método para alternar o status de favorito
+                          onTap: () {
+                            productController.toggleFavorite(widget.product);
+                          },
                           child: Image.asset(
                             isFavorite ? AppImages.favorite_true : AppImages.favorite_false,
                             width: 25,

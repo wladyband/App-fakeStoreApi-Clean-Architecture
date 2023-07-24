@@ -1,7 +1,7 @@
 import 'package:fakestoreapi/app/domain/models/product.dart';
 import 'package:fakestoreapi/app/domain/repositories/ProductRepository.dart';
 import 'package:fakestoreapi/app/presentation/global/ppp_images.dart';
-import 'package:fakestoreapi/app/presentation/global/widget/product_widget.dart';
+import 'package:fakestoreapi/app/presentation/modules/produtos/widget/product_widget.dart';
 import 'package:fakestoreapi/app/presentation/modules/produtos/all/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
