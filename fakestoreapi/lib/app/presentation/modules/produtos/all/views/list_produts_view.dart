@@ -1,6 +1,7 @@
 import 'package:fakestoreapi/app/domain/models/product.dart';
 import 'package:fakestoreapi/app/domain/repositories/ProductRepository.dart';
 import 'package:fakestoreapi/app/presentation/global/ppp_images.dart';
+import 'package:fakestoreapi/app/presentation/global/widget/product_widget.dart';
 import 'package:fakestoreapi/app/presentation/modules/produtos/all/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -70,10 +71,7 @@ class _ListProductsViewState extends State<ListProductsView> {
                   itemCount: products.length,
                   itemBuilder: (context, index) {
                     Product product = products[index];
-                    return ListTile(
-                      title: Text(product.title),
-                      // Adicione outros detalhes do produto que deseja exibir aqui.
-                    );
+                    return ProductWidget(product: product);
                   },
                 );
               },
