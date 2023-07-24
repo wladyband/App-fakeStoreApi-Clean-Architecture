@@ -45,6 +45,7 @@ dependencies:
   pagination_flutter: ^0.0.8
   pagination_view: ^2.0.0
   flutter_statusbarcolor_ns: ^0.5.0
+  shared_preferences: ^2.2.0
 
 
 dev_dependencies:
