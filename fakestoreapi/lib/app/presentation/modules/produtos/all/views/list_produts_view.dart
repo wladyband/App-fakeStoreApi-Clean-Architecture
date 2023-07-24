@@ -13,30 +13,17 @@ class ListProductsView extends StatefulWidget {
 }
 
 class _ListProductsViewState extends State<ListProductsView> {
-  List<Product> products = [];
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
-          (timeStamp) {
-        _init();
-      },
-    );
-  }
-
-  Future<void> _init() async {
-    final ProductRepository productRepository = context.read();
-    List<Product> productList = await productRepository.getProductData();
-    setState(() {
-      products = productList;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<ProductController>(context, listen: false).updateProductList();
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final _productController = Provider.of<ProductController>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -76,13 +63,18 @@ class _ListProductsViewState extends State<ListProductsView> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: products.length, // Correção aqui
-              itemBuilder: (context, index) {
-                Product product = products[index]; // Correção aqui
-                return ListTile(
-                  title: Text(product.title),
-                  // Adicione outros detalhes do produto que deseja exibir aqui.
+            child: Consumer<ProductController>(
+              builder: (context, productController, _) {
+                List<Product> products = productController.productList;
+                return ListView.builder(
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    Product product = products[index];
+                    return ListTile(
+                      title: Text(product.title),
+                      // Adicione outros detalhes do produto que deseja exibir aqui.
+                    );
+                  },
                 );
               },
             ),
