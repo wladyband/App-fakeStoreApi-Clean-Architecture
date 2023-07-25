@@ -19,17 +19,9 @@ class HomeView extends StatelessWidget {
               )
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushReplacementNamed(
-                context,
-                Routes.list_products,
-              );
-            },
-            child: Image.asset(
-              AppImages.home,
-              // Aqui você pode definir atributos como width, height, etc. para a imagem.
-            ),
+          Image.asset(
+            AppImages.home,
+            // Aqui você pode definir atributos como width, height, etc. para a imagem.
           ),
           SizedBox(height: 20), // Opcional: Espaçamento entre o rodapé e a parte inferior da tela
         ],

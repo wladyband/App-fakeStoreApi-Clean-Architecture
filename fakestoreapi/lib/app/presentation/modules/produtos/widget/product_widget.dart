@@ -20,6 +20,10 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget build(BuildContext context) {
     final productController = Provider.of<ProductController>(context);
     bool isFavorite = productController.isFavorite(widget.product);
+
+    // Obtém o tamanho da largura da tela
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return GestureDetector(
       onTap: () {
         // Navigate to the detail page here
@@ -31,15 +35,15 @@ class _ProductWidgetState extends State<ProductWidget> {
         );
       },
       child: Padding(
-        padding: const EdgeInsets.only(top: 10, bottom: 5, right: 26, left: 26),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 26),
         child: Column(
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: 100, // Ajuste o tamanho da imagem conforme necessário
-                  height: 100,
+                  width: screenWidth * 0.25, // 25% da largura da tela
+                  height: screenWidth * 0.25, // 25% da largura da tela
                   child: Image.network(
                     widget.product.image,
                     fit: BoxFit.contain,
@@ -53,36 +57,36 @@ class _ProductWidgetState extends State<ProductWidget> {
                     children: [
                       Text(
                         widget.product.title,
-                        style: const TextStyle(
-                          fontSize: 18,
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.04, // Ajuste o tamanho da fonte conforme necessário
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 16),
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.star,
                             color: Colors.yellow,
-                            size: 18,
+                            size: screenWidth * 0.035, // Ajuste o tamanho do ícone conforme necessário
                           ),
                           const SizedBox(width: 6),
                           // Espaço entre o ícone e o texto
                           Text(
                             widget.product.rating.rate.toString(),
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: screenWidth * 0.04, // Ajuste o tamanho da fonte conforme necessário
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey.shade500),
                           ),
                           Text(
                             " (${widget.product.rating.count} reviews)",
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: screenWidth * 0.04, // Ajuste o tamanho da fonte conforme necessário
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey.shade500),
                           ),
-                          const SizedBox(width: 27),
+                          SizedBox(width: screenWidth * 0.07), // 7% da largura da tela
                           InkWell(
                             onTap: () {
                               productController.toggleFavorite(widget.product);
@@ -91,8 +95,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                               isFavorite
                                   ? AppImages.favorite_true
                                   : AppImages.favorite_false,
-                              width: 25,
-                              height: 25,
+                              width: screenWidth * 0.065, // Ajuste o tamanho da imagem conforme necessário
+                              height: screenWidth * 0.065, // Ajuste o tamanho da imagem conforme necessário
                             ),
                           ),
                         ],
@@ -101,7 +105,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                       Text(
                         "\$" + widget.product.price.toString(),
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: screenWidth * 0.05, // Ajuste o tamanho da fonte conforme necessário
                           fontWeight: FontWeight.bold,
                           color: Colors.orange,
                         ),
@@ -124,3 +128,4 @@ class _ProductWidgetState extends State<ProductWidget> {
     );
   }
 }
+
