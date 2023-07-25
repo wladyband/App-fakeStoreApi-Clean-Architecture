@@ -10,6 +10,10 @@ class ProductController extends ChangeNotifier {
   String searchTerm = '';
   bool _isMounted = false;
 
+  Map<String, Product> productMap = {};
+
+
+
   void init() {
     _isMounted = true;
   }
@@ -24,7 +28,7 @@ class ProductController extends ChangeNotifier {
   }
 
   ProductController(this.productRepository) {
-    // Ao criar a instância do ProductController, carregar os produtos favoritados do SharedPreferences
+
     loadFavoriteProducts();
   }
 

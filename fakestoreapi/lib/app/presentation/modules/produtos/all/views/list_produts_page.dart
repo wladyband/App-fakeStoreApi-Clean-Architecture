@@ -1,6 +1,7 @@
 import 'package:fakestoreapi/app/domain/models/product.dart';
 import 'package:fakestoreapi/app/domain/repositories/ProductRepository.dart';
 import 'package:fakestoreapi/app/presentation/global/ppp_images.dart';
+import 'package:fakestoreapi/app/presentation/modules/produtos/widget/favorite_products_page.dart';
 import 'package:fakestoreapi/app/presentation/modules/produtos/widget/product_widget.dart';
 import 'package:fakestoreapi/app/presentation/modules/produtos/all/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class ListProductsPage extends StatefulWidget {
 }
 
 class _ListProductsPageState extends State<ListProductsPage> {
+  bool noResultsFound = false;
 
   @override
   void initState() {
@@ -21,18 +23,15 @@ class _ListProductsPageState extends State<ListProductsPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ProductController>(context, listen: false)
           .updateProductList();
-      Provider.of<ProductController>(context, listen: false)
-          .init();
+      Provider.of<ProductController>(context, listen: false).init();
     });
   }
 
   @override
   void dispose() {
-    Provider.of<ProductController>(context, listen: false)
-        .dispose();
+    Provider.of<ProductController>(context, listen: false).dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +52,14 @@ class _ListProductsPageState extends State<ListProductsPage> {
               width: 24,
               height: 24,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FavoriteProductsPage(), // Defina a tela de favoritos aqui
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -70,7 +76,8 @@ class _ListProductsPageState extends State<ListProductsPage> {
                 ),
               ),
               onChanged: (value) {
-                Provider.of<ProductController>(context, listen: false).updateSearchTerm(value);
+                Provider.of<ProductController>(context, listen: false)
+                    .updateSearchTerm(value);
               },
             ),
           ),
@@ -79,21 +86,35 @@ class _ListProductsPageState extends State<ListProductsPage> {
               builder: (context, productController, _) {
                 List<Product> products = productController.productList;
 
-
                 List<Product> filteredProducts = products.where((product) {
                   final title = product.title.toLowerCase();
-                  final searchLowercase = productController.searchTerm.toLowerCase();
+                  final searchLowercase =
+                      productController.searchTerm.toLowerCase();
                   return title.contains(searchLowercase);
                 }).toList();
 
-
-                return ListView.builder(
-                  itemCount: filteredProducts.length,
-                  itemBuilder: (context, index) {
-                    Product product = filteredProducts[index];
-                    return ProductWidget(product: product);
-                  },
-                );
+                noResultsFound = filteredProducts.isEmpty;
+                if (noResultsFound) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        width: 200,
+                        height: 217,
+                        child: Image.asset(AppImages.empty),
+                      )
+                    ],
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: filteredProducts.length,
+                    itemBuilder: (context, index) {
+                      Product product = filteredProducts[index];
+                      return ProductWidget(product: product);
+                    },
+                  );
+                }
               },
             ),
           ),
