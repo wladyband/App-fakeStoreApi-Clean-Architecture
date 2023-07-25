@@ -6,26 +6,42 @@ import 'package:fakestoreapi/app/presentation/modules/produtos/all/controllers/p
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ListProductsView extends StatefulWidget {
-  const ListProductsView({Key? key}) : super(key: key);
+class ListProductsPage extends StatefulWidget {
+  const ListProductsPage({Key? key}) : super(key: key);
 
   @override
-  State<ListProductsView> createState() => _ListProductsViewState();
+  State<ListProductsPage> createState() => _ListProductsPageState();
 }
 
-class _ListProductsViewState extends State<ListProductsView> {
+class _ListProductsPageState extends State<ListProductsPage> {
+  String _searchTerm = '';
+  bool _isMounted = false;
 
   @override
   void initState() {
     super.initState();
+    _isMounted = true;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<ProductController>(context, listen: false).updateProductList();
+      Provider.of<ProductController>(context, listen: false)
+          .updateProductList();
     });
   }
 
   @override
-  Widget build(BuildContext context) {
+  void dispose() {
+    _isMounted = false;
+    super.dispose();
+  }
+  void _updateSearchTerm(String value) {
+    if (_isMounted) {
+      setState(() {
+        _searchTerm = value;
+      });
+    }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -54,30 +70,37 @@ class _ListProductsViewState extends State<ListProductsView> {
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search Anything',
-                // Texto de dica no campo de busca
                 prefixIcon: Icon(Icons.search),
-                // Ícone à esquerda do campo de busca
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
                 ),
               ),
+              onChanged: _updateSearchTerm,
             ),
           ),
           Expanded(
             child: Consumer<ProductController>(
               builder: (context, productController, _) {
                 List<Product> products = productController.productList;
+
+
+                List<Product> filteredProducts = products.where((product) {
+                  final title = product.title.toLowerCase();
+                  final searchLowercase = _searchTerm.toLowerCase();
+                  return title.contains(searchLowercase);
+                }).toList();
+
+
                 return ListView.builder(
-                  itemCount: products.length,
+                  itemCount: filteredProducts.length,
                   itemBuilder: (context, index) {
-                    Product product = products[index];
+                    Product product = filteredProducts[index];
                     return ProductWidget(product: product);
                   },
                 );
               },
             ),
           ),
-
         ],
       ),
     );

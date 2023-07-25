@@ -7,6 +7,16 @@ class ProductController extends ChangeNotifier {
   final ProductRepository productRepository;
   List<Product> productList = [];
   List<String> favoriteProducts = [];
+  String _searchTerm = '';
+  bool _isMounted = false;
+
+  void init() {
+    _isMounted = true;
+  }
+
+  void dispose() {
+    _isMounted = false;
+  }
 
   ProductController(this.productRepository) {
     // Ao criar a instância do ProductController, carregar os produtos favoritados do SharedPreferences
