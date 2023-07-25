@@ -14,31 +14,25 @@ class ListProductsPage extends StatefulWidget {
 }
 
 class _ListProductsPageState extends State<ListProductsPage> {
-  String _searchTerm = '';
-  bool _isMounted = false;
 
   @override
   void initState() {
     super.initState();
-    _isMounted = true;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ProductController>(context, listen: false)
           .updateProductList();
+      Provider.of<ProductController>(context, listen: false)
+          .init();
     });
   }
 
   @override
   void dispose() {
-    _isMounted = false;
+    Provider.of<ProductController>(context, listen: false)
+        .dispose();
     super.dispose();
   }
-  void _updateSearchTerm(String value) {
-    if (_isMounted) {
-      setState(() {
-        _searchTerm = value;
-      });
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +69,9 @@ class _ListProductsPageState extends State<ListProductsPage> {
                   borderRadius: BorderRadius.circular(25.0),
                 ),
               ),
-              onChanged: _updateSearchTerm,
+              onChanged: (value) {
+                Provider.of<ProductController>(context, listen: false).updateSearchTerm(value);
+              },
             ),
           ),
           Expanded(
@@ -86,7 +82,7 @@ class _ListProductsPageState extends State<ListProductsPage> {
 
                 List<Product> filteredProducts = products.where((product) {
                   final title = product.title.toLowerCase();
-                  final searchLowercase = _searchTerm.toLowerCase();
+                  final searchLowercase = productController.searchTerm.toLowerCase();
                   return title.contains(searchLowercase);
                 }).toList();
 

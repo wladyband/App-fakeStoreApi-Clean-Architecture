@@ -7,7 +7,7 @@ class ProductController extends ChangeNotifier {
   final ProductRepository productRepository;
   List<Product> productList = [];
   List<String> favoriteProducts = [];
-  String _searchTerm = '';
+  String searchTerm = '';
   bool _isMounted = false;
 
   void init() {
@@ -16,6 +16,11 @@ class ProductController extends ChangeNotifier {
 
   void dispose() {
     _isMounted = false;
+  }
+
+  void updateSearchTerm(String value) {
+    searchTerm = value;
+    notifyListeners(); // Notifica os ouvintes sobre a mudança no termo de busca
   }
 
   ProductController(this.productRepository) {
