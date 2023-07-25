@@ -58,7 +58,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                       Text(
                         widget.product.title,
                         style: TextStyle(
-                          fontSize: screenWidth * 0.04, // Ajuste o tamanho da fonte conforme necessário
+                          fontSize: screenWidth * 0.04,
+                          // Ajuste o tamanho da fonte conforme necessário
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -68,25 +69,26 @@ class _ProductWidgetState extends State<ProductWidget> {
                           Icon(
                             Icons.star,
                             color: Colors.yellow,
-                            size: screenWidth * 0.035, // Ajuste o tamanho do ícone conforme necessário
+                            size: screenWidth * 0.035,
                           ),
                           const SizedBox(width: 6),
                           // Espaço entre o ícone e o texto
                           Text(
                             widget.product.rating.rate.toString(),
                             style: TextStyle(
-                                fontSize: screenWidth * 0.04, // Ajuste o tamanho da fonte conforme necessário
+                                fontSize: screenWidth * 0.04,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey.shade500),
                           ),
                           Text(
                             " (${widget.product.rating.count} reviews)",
                             style: TextStyle(
-                                fontSize: screenWidth * 0.04, // Ajuste o tamanho da fonte conforme necessário
+                                fontSize: screenWidth * 0.04,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey.shade500),
                           ),
-                          SizedBox(width: screenWidth * 0.07), // 7% da largura da tela
+                          SizedBox(width: screenWidth * 0.07),
+                          // 7% da largura da tela
                           InkWell(
                             onTap: () {
                               productController.toggleFavorite(widget.product);
@@ -95,8 +97,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                               isFavorite
                                   ? AppImages.favorite_true
                                   : AppImages.favorite_false,
-                              width: screenWidth * 0.065, // Ajuste o tamanho da imagem conforme necessário
-                              height: screenWidth * 0.065, // Ajuste o tamanho da imagem conforme necessário
+                              width: screenWidth * 0.065,
+                              height: screenWidth *
+                                  0.065,
                             ),
                           ),
                         ],
@@ -105,7 +108,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                       Text(
                         "\$" + widget.product.price.toString(),
                         style: TextStyle(
-                          fontSize: screenWidth * 0.05, // Ajuste o tamanho da fonte conforme necessário
+                          fontSize: screenWidth * 0.05,
+                          // Ajuste o tamanho da fonte conforme necessário
                           fontWeight: FontWeight.bold,
                           color: Colors.orange,
                         ),
@@ -128,4 +132,3 @@ class _ProductWidgetState extends State<ProductWidget> {
     );
   }
 }
-

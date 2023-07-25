@@ -9,6 +9,7 @@ class ProductController extends ChangeNotifier {
   List<String> favoriteProducts = [];
   String searchTerm = '';
   bool _isMounted = false;
+  bool _noResultsFound = false;
 
   Map<String, Product> productMap = {};
 
@@ -24,7 +25,7 @@ class ProductController extends ChangeNotifier {
 
   void updateSearchTerm(String value) {
     searchTerm = value;
-    notifyListeners(); // Notifica os ouvintes sobre a mudança no termo de busca
+    notifyListeners();
   }
 
   ProductController(this.productRepository) {
@@ -32,12 +33,27 @@ class ProductController extends ChangeNotifier {
     loadFavoriteProducts();
   }
 
+  bool isLoading() {
+    return productList.isEmpty;
+  }
+
   Future<void> updateProductList() async {
     productList = await productRepository.getProductData();
     notifyListeners();
   }
 
-  // Carregar os produtos favoritados do SharedPreferences
+  List<Product> getFilteredProducts() {
+    List<Product> products = productList;
+    List<Product> filteredProducts = products.where((product) {
+      final title = product.title.toLowerCase();
+      final searchLowercase = searchTerm.toLowerCase();
+      return title.contains(searchLowercase);
+    }).toList();
+
+    return filteredProducts;
+  }
+
+
   Future<void> loadFavoriteProducts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     favoriteProducts = prefs.getStringList('favoriteProducts') ?? [];
