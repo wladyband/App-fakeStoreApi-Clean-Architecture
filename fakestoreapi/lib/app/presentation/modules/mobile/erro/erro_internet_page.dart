@@ -2,8 +2,8 @@ import 'package:fakestoreapi/app/presentation/global/ppp_images.dart';
 import 'package:fakestoreapi/app/presentation/routes/routes.dart';
 import 'package:flutter/material.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+class ErroInternetPage extends StatelessWidget {
+  const ErroInternetPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

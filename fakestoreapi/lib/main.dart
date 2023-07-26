@@ -7,7 +7,7 @@ import 'package:fakestoreapi/app/data/services/remote/productAPI.dart';
 import 'package:fakestoreapi/app/domain/repositories/ProductRepository.dart';
 import 'package:fakestoreapi/app/domain/repositories/connectivity_repository.dart';
 import 'package:fakestoreapi/app/my_app.dart';
-import 'package:fakestoreapi/app/presentation/modules/produtos/all/controllers/product_controller.dart';
+import 'package:fakestoreapi/app/presentation/modules/mobile/produtos/all/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';

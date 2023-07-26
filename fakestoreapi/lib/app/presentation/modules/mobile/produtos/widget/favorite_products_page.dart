@@ -1,10 +1,10 @@
 import 'package:fakestoreapi/app/domain/models/Rating.dart';
-import 'package:fakestoreapi/app/presentation/modules/produtos/all/controllers/product_controller.dart';
-import 'package:fakestoreapi/app/presentation/modules/produtos/widget/product_widget.dart';
+import 'package:fakestoreapi/app/presentation/modules/mobile/produtos/all/controllers/product_controller.dart';
+import 'package:fakestoreapi/app/presentation/modules/mobile/produtos/widget/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../domain/models/product.dart';
+import '../../../../../domain/models/product.dart';
 
 class FavoriteProductsPage extends StatefulWidget {
   const FavoriteProductsPage({Key? key}) : super(key: key);

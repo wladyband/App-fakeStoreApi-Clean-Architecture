@@ -27,9 +27,10 @@ class _SplashPageState extends State<SplashPage> {
     final hasInternet = await connectivityRepository.hasInternet;
 
     if (!hasInternet) {
-      _goTo(Routes.home);
+      _goTo(Routes.erro);
     }
     if (hasInternet) {
+
       if (mounted) {
         _goTo(Routes.list_products);
       }
@@ -42,6 +43,9 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return const Scaffold(
       body: Center(
         child:

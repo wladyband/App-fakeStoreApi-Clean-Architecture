@@ -1,9 +1,9 @@
 import 'package:fakestoreapi/app/domain/models/product.dart';
 import 'package:fakestoreapi/app/domain/repositories/ProductRepository.dart';
 import 'package:fakestoreapi/app/presentation/global/ppp_images.dart';
-import 'package:fakestoreapi/app/presentation/modules/produtos/widget/favorite_products_page.dart';
-import 'package:fakestoreapi/app/presentation/modules/produtos/widget/product_widget.dart';
-import 'package:fakestoreapi/app/presentation/modules/produtos/all/controllers/product_controller.dart';
+import 'package:fakestoreapi/app/presentation/modules/mobile/produtos/widget/favorite_products_page.dart';
+import 'package:fakestoreapi/app/presentation/modules/mobile/produtos/widget/product_widget.dart';
+import 'package:fakestoreapi/app/presentation/modules/mobile/produtos/all/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,20 +15,11 @@ class ListProductsPage extends StatefulWidget {
 }
 
 class _ListProductsPageState extends State<ListProductsPage> {
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<ProductController>(context, listen: false).updateProductList();
-  }
 
-  @override
-  void dispose() {
-    Provider.of<ProductController>(context, listen: false).dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ProductController>(context, listen: false).updateProductList();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
