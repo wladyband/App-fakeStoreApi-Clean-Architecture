@@ -7,7 +7,6 @@ import 'package:fakestoreapi/app/data/services/service_locator.dart';
 import 'package:fakestoreapi/app/domain/repositories/ProductRepository.dart';
 import 'package:fakestoreapi/app/domain/repositories/connectivity_repository.dart';
 
-
 import 'data/http/http.dart';
 
 Future<void> injectRepositories({
@@ -16,9 +15,8 @@ Future<void> injectRepositories({
   required Connectivity connectivity,
   required InternetChecker internetChecker,
 }) async {
-
   final connectivityRepository =
-  ServiceLocator.instance.put<ConnectivityRepository>(
+      ServiceLocator.instance.put<ConnectivityRepository>(
     ConnectivityRepositoryImpl(
       connectivity,
       internetChecker,
@@ -32,20 +30,15 @@ Future<void> injectRepositories({
     ),
   );
 
-
   await connectivityRepository.initialize();
 }
 
 class Repositories {
   Repositories._();
 
-  ///
   static ConnectivityRepository get connectivity =>
       ServiceLocator.instance.find();
 
-
-  static ProductRepository  get productRepository =>
+  static ProductRepository get productRepository =>
       ServiceLocator.instance.find();
-
-
 }

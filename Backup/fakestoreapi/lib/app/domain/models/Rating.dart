@@ -16,6 +16,13 @@ class Rating with _$Rating {
 
   factory Rating.fromJson(Map<String, dynamic> json) => _$RatingFromJson(json);
 
+  static Rating fromJsonMap(Map<String, dynamic> jsonMap) {
+    return Rating(
+      rate: (jsonMap['rate'] as num).toDouble(), // Converte para double
+      count: jsonMap['count'] as int, // Mantém o tipo int
+    );
+  }
+
   Map<String, dynamic> toJsonMap() => {
     'rate': rate,
     'count': count,

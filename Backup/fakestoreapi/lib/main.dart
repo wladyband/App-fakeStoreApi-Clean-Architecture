@@ -5,6 +5,7 @@ import 'package:fakestoreapi/app/data/services/remote/productAPI.dart';
 import 'package:fakestoreapi/app/domain/repositories/ProductRepository.dart';
 import 'package:fakestoreapi/app/my_app.dart';
 import 'package:fakestoreapi/app/presentation/modules/mobile/products/all/controllers/product_controller.dart';
+import 'package:fakestoreapi/app/presentation/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,22 @@ void main() async{
   internetChecker: InternetChecker(), productAPI: ProductAPI(http),
   );
   runApp(
-    MultiProvider(
+    const Root(),
+  );
+}
+
+class Root extends StatelessWidget {
+  const Root({
+    super.key,
+    this.initialRoute = Routes.splash_page,
+    this.appRoutes,
+  });
+  final String initialRoute;
+  final Map<String, WidgetBuilder>? appRoutes;
+
+  @override
+  Widget build(BuildContext context) {
+    return  MultiProvider(
       providers: [
         ChangeNotifierProvider<ProductController>(
           create: (_) => ProductController(
@@ -33,6 +49,6 @@ void main() async{
         ),
       ],
       child: const MyApp(),
-    ),
-  );
+    );
+  }
 }

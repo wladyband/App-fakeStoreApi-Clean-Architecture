@@ -12,8 +12,6 @@ part 'failure.dart';
 part 'logs.dart';
 part 'parse_response_body.dart';
 
-
-
 class Http {
   Http({
       required Client client,

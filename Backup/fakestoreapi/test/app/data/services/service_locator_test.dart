@@ -1,61 +1,105 @@
-import 'package:fakestoreapi/app/data/services/service_locator.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:fakestoreapi/app/data/repositories_implementation/connectivity_repository_impl.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+
+
+import '../../../mocks.dart';
 
 void main() {
-  tearDown(
+  group(
+    'ConnectivityRepositoryImpl >',
         () {
-      ServiceLocator.instance.clear();
-    },
-  );
-  test(
-    'ServiceLocator > put',
-        () {
-      expect(
+      late ConnectivityRepositoryImpl repository;
+      late MockConnectivity connectivity;
+      late MockInternetChecker internetChecker;
+
+      setUp(
             () {
-          ServiceLocator.instance.find<String>();
+          connectivity = MockConnectivity();
+          internetChecker = MockInternetChecker();
+
+          repository = ConnectivityRepositoryImpl(
+            connectivity,
+            internetChecker,
+          );
         },
-        throwsAssertionError,
       );
 
-      final name = ServiceLocator.instance.put<String>(
-        'Darwin',
+      test(
+        'hasInternet > not initialized',
+            () async {
+          when(
+            connectivity.checkConnectivity(),
+          ).thenAnswer(
+                (_) async => ConnectivityResult.wifi,
+          );
+
+          when(
+            internetChecker.hasInternet(),
+          ).thenAnswer(
+                (_) async => true,
+          );
+
+          when(
+            connectivity.onConnectivityChanged,
+          ).thenAnswer(
+                (_) => const Stream.empty(),
+          );
+
+          expect(
+                () {
+              repository.hasInternet;
+            },
+            throwsAssertionError,
+          );
+          await repository.initialize();
+
+          expect(
+            repository.hasInternet,
+            true,
+          );
+        },
       );
-      expect(
-        name,
-        ServiceLocator.instance.find<String>(),
+
+      test(
+        'onConnectivityChanged',
+            () async {
+          when(connectivity.checkConnectivity()).thenAnswer(
+                (_) async => ConnectivityResult.none,
+          );
+          when(connectivity.onConnectivityChanged).thenAnswer(
+                (_) => Stream.fromIterable(
+              [
+                ConnectivityResult.wifi,
+                ConnectivityResult.none,
+                ConnectivityResult.mobile,
+              ],
+            ),
+          );
+          when(internetChecker.hasInternet()).thenAnswer(
+                (_) async => true,
+          );
+          await repository.initialize();
+          expect(repository.hasInternet, false);
+
+          final future = expectLater(
+            repository.onInternetChanged,
+            emitsInOrder(
+              [
+                true,
+                false,
+                true,
+              ],
+            ),
+          );
+
+          await future;
+          expect(repository.hasInternet, true);
+        },
       );
     },
   );
-
-  test(
-    'ServiceLocator > put 2',
-        () {
-      ServiceLocator.instance.put('Darwin');
-      ServiceLocator.instance.put(
-        'Santiago',
-        tag: 'name2',
-      );
-      final user = ServiceLocator.instance.put(
-        IUser('Lulu'),
-      );
-
-      final name = ServiceLocator.instance.find<String>(
-        tag: 'name2',
-      );
-      expect(ServiceLocator.instance.find<IUser>(), user);
-
-      expect(
-        ServiceLocator.instance.find<String>(),
-        'Darwin',
-      );
-      expect(name, 'Santiago');
-    },
-  );
-}
-
-class IUser {
-  final String name;
-
-  IUser(this.name);
 }
