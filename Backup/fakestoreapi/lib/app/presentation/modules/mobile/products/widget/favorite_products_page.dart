@@ -3,7 +3,6 @@ import 'package:fakestoreapi/app/presentation/modules/mobile/products/all/contro
 import 'package:fakestoreapi/app/presentation/modules/mobile/products/widget/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../../domain/models/product.dart';
 
 class FavoriteProductsPage extends StatefulWidget {
@@ -26,7 +25,7 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
           icon: const Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () {
-            Navigator.of(context).pop(); // Retorna para a tela anterior
+            Navigator.of(context).pop();
           },
         ),
         title: const Text(
@@ -50,7 +49,7 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
               price: 0.0,
               rating: Rating(
                   rate: 0.0,
-                  count: 0), // Crie uma instância de Rating com valores padrão
+                  count: 0),
             ),
           );
           return ProductWidget(product: product);

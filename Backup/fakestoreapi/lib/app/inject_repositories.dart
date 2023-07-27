@@ -37,7 +37,7 @@ Future<void> injectRepositories({
 }
 
 class Repositories {
-  Repositories._(); // coverage:ignore-line
+  Repositories._();
 
   ///
   static ConnectivityRepository get connectivity =>

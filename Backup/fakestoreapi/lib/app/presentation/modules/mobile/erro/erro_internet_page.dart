@@ -12,7 +12,7 @@ class ErroInternetPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded( // Ocupa o espaço disponível acima do rodapé
+          Expanded(
             child: Center(
               child: Image.asset(
                AppImages.disconnected
@@ -21,9 +21,9 @@ class ErroInternetPage extends StatelessWidget {
           ),
           Image.asset(
             AppImages.home,
-            // Aqui você pode definir atributos como width, height, etc. para a imagem.
+
           ),
-          SizedBox(height: 20), // Opcional: Espaçamento entre o rodapé e a parte inferior da tela
+          const SizedBox(height: 20),
         ],
       ),
     );

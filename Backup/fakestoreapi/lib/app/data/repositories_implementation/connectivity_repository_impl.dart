@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
-
 import '../../domain/repositories/connectivity_repository.dart';
 import '../services/remote/internet_checker.dart';
 

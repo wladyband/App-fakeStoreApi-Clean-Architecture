@@ -38,7 +38,6 @@ class _ListProductsPageState extends State<ListProductsPage> {
               height: 24,
             ),
             onPressed: () {
-              // Navega para a tela de favoritos quando o ícone é pressionado
               Navigator.push(
                 context,
                 MaterialPageRoute(

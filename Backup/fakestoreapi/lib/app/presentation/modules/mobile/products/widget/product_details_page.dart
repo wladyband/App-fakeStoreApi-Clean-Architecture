@@ -35,17 +35,15 @@ class ProductDetailPage extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: screenWidth * 0.075), // 7.5% da largura da tela
+            padding: EdgeInsets.only(right: screenWidth * 0.075),
             child: InkWell(
               onTap: () {
                 productController.toggleFavorite(product);
               },
               child: Image.asset(
-                isFavorite
-                    ? AppImages.favorite_true
-                    : AppImages.favorite_false,
-                width: screenWidth * 0.065, // 6.5% da largura da tela
-                height: screenWidth * 0.065, // 6.5% da largura da tela
+                isFavorite ? AppImages.favorite_true : AppImages.favorite_false,
+                width: screenWidth * 0.065,
+                height: screenWidth * 0.065,
               ),
             ),
           ),
@@ -55,10 +53,10 @@ class ProductDetailPage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: screenWidth * 0.05), // 5% da largura da tela
+              padding: EdgeInsets.only(top: screenWidth * 0.05),
               child: SizedBox(
-                width: screenWidth * 0.8, // 80% da largura da tela
-                height: screenWidth * 0.77, // 77% da largura da tela
+                width: screenWidth * 0.8,
+                height: screenWidth * 0.77,
                 child: Image.network(
                   product.image,
                   fit: BoxFit.contain,
@@ -66,29 +64,37 @@ class ProductDetailPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: screenWidth * 0.05, right: screenWidth * 0.03, left: screenWidth * 0.03), // 5% da largura da tela em cada lado
+              padding: EdgeInsets.only(
+                  top: screenWidth * 0.05,
+                  right: screenWidth * 0.03,
+                  left: screenWidth * 0.03),
+
               child: Text(
                 product.title,
                 style: TextStyle(
-                  fontSize: screenWidth * 0.04, // 4% da largura da tela
+                  fontSize: screenWidth * 0.04,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: screenWidth * 0.05, right: screenWidth * 0.03, left: screenWidth * 0.03), // 5% da largura da tela em cada lado
+              padding: EdgeInsets.only(
+                  top: screenWidth * 0.05,
+                  right: screenWidth * 0.03,
+                  left: screenWidth * 0.03),
+
               child: Row(
                 children: [
                   Icon(
                     Icons.star,
                     color: Colors.yellow,
-                    size: screenWidth * 0.035, // 3.5% da largura da tela
+                    size: screenWidth * 0.035,
                   ),
-                  SizedBox(width: screenWidth * 0.01), // 1% da largura da tela
+                  SizedBox(width: screenWidth * 0.01),
                   Text(
                     product.rating.rate.toString(),
                     style: TextStyle(
-                      fontSize: screenWidth * 0.04, // 4% da largura da tela
+                      fontSize: screenWidth * 0.04,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey.shade500,
                     ),
@@ -96,18 +102,18 @@ class ProductDetailPage extends StatelessWidget {
                   Text(
                     " (${product.rating.count} reviews)",
                     style: TextStyle(
-                      fontSize: screenWidth * 0.04, // 4% da largura da tela
+                      fontSize: screenWidth * 0.04,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey.shade500,
                     ),
                   ),
                   SizedBox(
-                    width: screenWidth * 0.2, // 20% da largura da tela
+                    width: screenWidth * 0.2,
                   ),
                   Text(
                     "\$" + product.price.toString(),
                     style: TextStyle(
-                      fontSize: screenWidth * 0.06, // 6% da largura da tela
+                      fontSize: screenWidth * 0.06,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                     ),
@@ -161,5 +167,4 @@ class ProductDetailPage extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -4,7 +4,7 @@ import 'package:fakestoreapi/app/presentation/modules/mobile/products/all/contro
 import 'package:fakestoreapi/app/presentation/modules/mobile/products/widget/product_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ProductWidget extends StatefulWidget {
   final Product product;
@@ -21,12 +21,12 @@ class _ProductWidgetState extends State<ProductWidget> {
     final productController = Provider.of<ProductController>(context);
     bool isFavorite = productController.isFavorite(widget.product);
 
-    // Obtém o tamanho da largura da tela
+
     double screenWidth = MediaQuery.of(context).size.width;
 
     return GestureDetector(
       onTap: () {
-        // Navigate to the detail page here
+
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -42,15 +42,15 @@ class _ProductWidgetState extends State<ProductWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: screenWidth * 0.25, // 25% da largura da tela
-                  height: screenWidth * 0.25, // 25% da largura da tela
+                  width: screenWidth * 0.25,
+                  height: screenWidth * 0.25,
                   child: Image.network(
                     widget.product.image,
                     fit: BoxFit.contain,
                   ),
                 ),
                 const SizedBox(width: 16),
-                // Espaçamento entre a imagem e as informações
+
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +59,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                         widget.product.title,
                         style: TextStyle(
                           fontSize: screenWidth * 0.04,
-                          // Ajuste o tamanho da fonte conforme necessário
+
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -72,7 +72,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                             size: screenWidth * 0.035,
                           ),
                           const SizedBox(width: 6),
-                          // Espaço entre o ícone e o texto
+
                           Text(
                             widget.product.rating.rate.toString(),
                             style: TextStyle(
@@ -109,7 +109,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                         "\$" + widget.product.price.toString(),
                         style: TextStyle(
                           fontSize: screenWidth * 0.05,
-                          // Ajuste o tamanho da fonte conforme necessário
+
                           fontWeight: FontWeight.bold,
                           color: Colors.orange,
                         ),
@@ -122,8 +122,8 @@ class _ProductWidgetState extends State<ProductWidget> {
             Padding(
               padding: const EdgeInsets.only(top: 30, bottom: 5),
               child: Divider(
-                color: Colors.grey.shade200, // Cor da barrinha cinza
-                thickness: 2, // Espessura da barrinha
+                color: Colors.grey.shade200,
+                thickness: 2,
               ),
             ),
           ],
